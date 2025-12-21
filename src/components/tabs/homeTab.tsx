@@ -1,4 +1,5 @@
 import ProductCard from "../productCard/productCard";
+import productData from "../../data/products.json";
 
 const HomeTab = () => {
   return (
