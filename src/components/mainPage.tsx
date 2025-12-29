@@ -2,8 +2,8 @@ import React from "react";
 import { Tabs, Tab, Box } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import HomeIcon from "@mui/icons-material/Home";
-import CartTab from "./tabs/cartTab";
-import HomeTab from "./tabs/homeTab";
+import CartTab from "./tabs/CartTab";
+import HomeTab from "./tabs/HomeTab";
 
 interface TabPanelProps {
   children?: React.ReactNode;

@@ -1,16 +1,31 @@
-import ProductCard from "../productCard/productCard";
+import ProductCard from "../productCard/ProductCard";
 import productData from "../../data/products.json";
+import { Box } from "@mui/material";
+import { useCartStore } from "../../store/CartStore";
 
 const HomeTab = () => {
+  const {} = useCartStore();
   return (
-    <ProductCard
-      id={1}
-      name="liam"
-      description="description of liam"
-      image="src/images/liam.jpg"
-      price={29.99}
-      category="Food & Drink"
-    />
+    <Box
+      sx={{
+        display: "grid",
+        gap: 2,
+        gridTemplateColumns: "repeat(5, 1fr)",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {productData.map((product) => (
+        <ProductCard
+          id={product.id}
+          name={product.name}
+          description={product.description}
+          image={product.image}
+          price={product.price}
+          category={product.category}
+        />
+      ))}
+    </Box>
   );
 };
 export default HomeTab;

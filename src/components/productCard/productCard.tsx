@@ -4,6 +4,13 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Box, Dialog } from "@mui/material";
+import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
+import i18n from "../../i18n";
+import { useTranslation } from "react-i18next";
+import { useCartStore } from "../../store/CartStore";
+import { useState } from "react";
 
 interface ProductCardProps {
   id: number;
@@ -15,26 +22,61 @@ interface ProductCardProps {
 }
 
 const ProductCard = (props: ProductCardProps) => {
-  const { name, description, image, price, category } = props;
+  const { name, image, price } = props;
+  const { t } = useTranslation();
+  const { addProduct } = useCartStore();
+  const handleMoreDetails = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [open, setOpen] = useState(false);
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia sx={{ height: 140 }} image={image} title={name} />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {name}
-        </Typography>
-        <Typography gutterBottom variant="h5" component="div">
-          {price}
-        </Typography>
-        <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {description}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">add to cart</Button>
-        <Button size="small">more details</Button>
-      </CardActions>
-    </Card>
+    <>
+      <Card sx={{ maxWidth: 345 }}>
+        <CardMedia sx={{ height: 140 }} image={image} title={name} />
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h5">{name}</Typography>
+          <Typography variant="h5">{price}</Typography>
+        </CardContent>
+        <CardActions sx={{ justifyContent: "space-between" }}>
+          <Button size="small" onClick={() => addProduct(props.id)}>
+            {t("addToCart")}
+            <AddShoppingCartIcon />
+          </Button>
+          <Button size="small" onClick={handleMoreDetails}>
+            {t("moreDetails")}
+            <InfoOutlineIcon />
+          </Button>
+        </CardActions>
+      </Card>
+
+      <Dialog open={open} onClose={handleClose}>
+        <Box
+          sx={{
+            alignItems: "center",
+            minWidth: 300,
+            p: 2,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Typography variant="h6">{props.name}</Typography>
+          <Typography variant="body2" color="text.secondary">
+            {props.description}
+          </Typography>
+        </Box>
+      </Dialog>
+    </>
   );
 };
 
