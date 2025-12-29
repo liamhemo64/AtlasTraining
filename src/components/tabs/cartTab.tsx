@@ -17,7 +17,8 @@ import { useMemo } from "react";
 
 const CartTab = () => {
   const { t } = useTranslation();
-  const { cart, clearCart, getTotalItems, removeProduct } = useCartStore();
+  const { cart, clearCart, getTotalItems, removeProduct, money } =
+    useCartStore();
   let totalPrice = 0;
 
   const productDictionary = useMemo(() => {
@@ -48,16 +49,19 @@ const CartTab = () => {
             <ListItemText
               sx={{ textAlign: "right" }}
               primary={productInfo.name}
+              secondary={`${t("price")}: ${productInfo.price}`}
             />
             <ListItemText
               sx={{ textAlign: "right" }}
               primary={`${t("cart.quantity")}: ${product.amount}`}
+              secondary={` ${productInfo.price * product.amount}`}
             />
             <ListItem
               sx={{ width: 0 }}
               secondaryAction={
                 <IconButton
                   aria-label="delete"
+                  sx={{ color: "red" }}
                   onClick={() => removeProduct(product.id)}
                 >
                   <DeleteIcon />
@@ -78,7 +82,7 @@ const CartTab = () => {
           {t("cart.totalItems")}: {getTotalItems()}
         </Typography>
         <Typography variant="h6" sx={{ m: "1rem" }}>
-          {t("totalPrice")}:{totalPrice}
+          {t("totalPrice")}: {totalPrice}
         </Typography>
         <Button
           variant="contained"

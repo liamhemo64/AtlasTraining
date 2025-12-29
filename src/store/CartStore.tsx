@@ -10,8 +10,8 @@ export interface CartStoreState {
   addProduct: (id: number) => void;
   removeProduct: (id: number) => void;
   clearCart: () => void;
-  getAmountById: (id: number) => number; // optional helper
-  getTotalItems: () => number; // optional helper
+  getTotalItems: () => number;
+  money: number;
 }
 
 export const useCartStore = create<CartStoreState>((set, get) => ({
@@ -61,4 +61,6 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
 
   getTotalItems: () =>
     get().cart.reduce((sum, product) => sum + product.amount, 0),
+
+  money: 1000,
 }));
