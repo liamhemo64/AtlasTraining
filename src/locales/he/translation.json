@@ -12,5 +12,9 @@
   },
   "totalPrice": "מחיר כולל",
   "clearCart": "נקה עגלה",
-  "checkout": "לסיום קנייה"
+  "checkout": "לסיום קנייה",
+  "thankYouForYourPurchase": "תודה על הרכישה שלך!",
+  "pleaseAddMoney": "אנא הוסף כסף לחשבונך כדי להמשיך בקנייה.",
+  "notEnoughMoney": "אין מספיק כסף לחשבונך.",
+  "purchaseSuccessful": "הרכישה בוצעה בהצלחה!"
 }
