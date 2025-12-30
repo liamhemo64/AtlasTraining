@@ -8,9 +8,9 @@ const HomeTab = () => {
   return (
     <Box
       sx={{
-        display: "grid",
+        display: "flex",
+        flexWrap: "wrap",
         gap: 2,
-        gridTemplateColumns: "repeat(5, 1fr)",
         alignItems: "center",
         justifyContent: "center",
       }}
