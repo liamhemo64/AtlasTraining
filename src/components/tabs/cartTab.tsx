@@ -131,7 +131,7 @@ const CartTab = () => {
             flexDirection: "column",
           }}
         >
-          <ErrorOutlineIcon sx={{ fontSize: 50, color: "red" }} />
+          <ErrorOutlineIcon sx={{ fontSize: "4rem", color: "red" }} />
           <Typography variant="h6">{t("notEnoughMoney")}</Typography>
           <Typography variant="body2" color="text.secondary">
             {t("pleaseAddMoney")}
