@@ -7,11 +7,11 @@ export interface ProductCart {
 
 export interface CartStoreState {
   cart: ProductCart[];
+  balance: number;
   addProduct: (id: number) => void;
   removeProduct: (id: number) => void;
   clearCart: () => void;
   getTotalItems: () => number;
-  money: number;
   checkout: (totalPrice: number) => void;
 }
 
@@ -63,13 +63,13 @@ export const useCartStore = create<CartStoreState>((set, get) => ({
   getTotalItems: () =>
     get().cart.reduce((sum, product) => sum + product.amount, 0),
 
-  money: 1000,
+  balance: 1000,
 
   checkout: (totalPrice: number) =>
     set((state) => {
-      if (state.money >= totalPrice) {
+      if (state.balance >= totalPrice) {
         return {
-          money: state.money - totalPrice,
+          balance: state.balance - totalPrice,
           cart: [],
         };
       }

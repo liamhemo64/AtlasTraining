@@ -1,16 +1,14 @@
 import ProductCard from "../productCard/ProductCard";
 import productData from "../../data/products.json";
 import { Box } from "@mui/material";
-import { useCartStore } from "../../store/CartStore";
 
 const HomeTab = () => {
-  const {} = useCartStore();
   return (
     <Box
       sx={{
         display: "flex",
         flexWrap: "wrap",
-        gap: 2,
+        gap: "1rem",
         alignItems: "center",
         justifyContent: "center",
       }}

@@ -7,11 +7,10 @@ import Typography from "@mui/material/Typography";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Box, Dialog } from "@mui/material";
 import InfoOutlineIcon from "@mui/icons-material/InfoOutline";
-import i18n from "../../i18n";
 import { useTranslation } from "react-i18next";
 import { useCartStore } from "../../store/CartStore";
 import { useState } from "react";
-import { Image } from "@mui/icons-material";
+import i18n from "../../i18n";
 
 interface ProductCardProps {
   id: number;

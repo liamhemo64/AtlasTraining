@@ -2,7 +2,6 @@ import {
   Avatar,
   Box,
   Button,
-  Dialog,
   IconButton,
   ListItem,
   ListItemAvatar,
@@ -11,34 +10,33 @@ import {
 } from "@mui/material";
 import { useCartStore } from "../../store/CartStore";
 import { useTranslation } from "react-i18next";
-import i18n from "../../i18n";
 import DeleteIcon from "@mui/icons-material/Delete";
 import productData from "../../data/products.json";
 import { useMemo, useState } from "react";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import OrderCompletedDialog from "../OrderCompletedDialog";
 
 const CartTab = () => {
-  const { t } = useTranslation();
-  const { cart, clearCart, getTotalItems, removeProduct, money, checkout } =
+  const { t } = useTranslation(); //rename -- cant...
+  const { cart, balance, clearCart, getTotalItems, removeProduct, checkout } =
     useCartStore();
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const handleCheckout = () => {
-    if (money < totalPrice) {
-      setOpenError(true);
+    if (balance < totalPrice) {
+      setIsSuccess(false);
+      setIsDialogOpen(true);
     } else {
       checkout(totalPrice);
-      setOpenSuccess(true);
+      setIsSuccess(true);
+      setIsDialogOpen(true);
     }
   };
+
   const handleClose = () => {
-    setOpenError(false);
-    setOpenSuccess(false);
+    setIsDialogOpen(false);
   };
-
-  const [openError, setOpenError] = useState(false);
-  const [openSuccess, setOpenSuccess] = useState(false);
-
-  let totalPrice = 0;
 
   const productDictionary = useMemo(() => {
     return productData.reduce<Record<string, any>>((acc, item) => {
@@ -47,6 +45,14 @@ const CartTab = () => {
     }, {});
   }, []);
 
+  const totalPrice = useMemo(() => {
+    return cart.reduce((total, product) => {
+      const productInfo = productDictionary[String(product.id)];
+      if (!productInfo) return total;
+      return total + productInfo.price * product.amount;
+    }, 0);
+  }, [cart, productDictionary]);
+
   return (
     <>
       <Box sx={{ justifyContent: "space-between" }}>
@@ -54,7 +60,6 @@ const CartTab = () => {
           const productInfo = productDictionary[String(product.id)];
 
           if (!productInfo) return null;
-          totalPrice += productInfo.price * product.amount;
           return (
             <ListItem
               sx={{
@@ -64,7 +69,8 @@ const CartTab = () => {
               }}
             >
               <ListItemAvatar>
-                <Avatar sx={{ boxSizing: 5 }} src={productInfo.image}></Avatar>
+                {/* rem */}
+                <Avatar src={productInfo.image}></Avatar>
               </ListItemAvatar>
               <ListItemText
                 sx={{ textAlign: "right" }}
@@ -77,7 +83,7 @@ const CartTab = () => {
                 secondary={` ${productInfo.price * product.amount}`}
               />
               <ListItem
-                sx={{ width: 0 }}
+                sx={{ width: "0rem" }}
                 secondaryAction={
                   <IconButton
                     aria-label="delete"
@@ -120,40 +126,11 @@ const CartTab = () => {
           </Button>
         </Box>
       </Box>
-
-      <Dialog open={openError} onClose={handleClose}>
-        <Box
-          sx={{
-            alignItems: "center",
-            minWidth: 300,
-            p: 2,
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <ErrorOutlineIcon sx={{ fontSize: "4rem", color: "red" }} />
-          <Typography variant="h6">{t("notEnoughMoney")}</Typography>
-          <Typography variant="body2" color="text.secondary">
-            {t("pleaseAddMoney")}
-          </Typography>
-        </Box>
-      </Dialog>
-      <Dialog open={openSuccess} onClose={handleClose}>
-        <Box
-          sx={{
-            alignItems: "center",
-            minWidth: 300,
-            p: 2,
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Typography variant="h6">{t("purchaseSuccessful")}</Typography>
-          <Typography variant="body2" color="text.secondary">
-            {t("thankYouForYourPurchase")}
-          </Typography>
-        </Box>
-      </Dialog>
+      <OrderCompletedDialog
+        open={isDialogOpen}
+        onClose={handleClose}
+        isSuccess={isSuccess}
+      />
     </>
   );
 };
