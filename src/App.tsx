@@ -1,16 +1,12 @@
-import { useState } from "react";
 import "./App.css";
-import Navbar from "./components/navbar/navbar";
-import MainPage from "./components/mainPage";
+import AtlasTabs from "./components/AtlasTabs";
+import AtlasAppBar from "./components/appBar/AtlasAppBar";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <Navbar />
-
-      <MainPage />
+      <AtlasAppBar />
+      <AtlasTabs />
     </>
   );
 }

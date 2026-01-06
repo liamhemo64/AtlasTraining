@@ -15,7 +15,7 @@ i18n.use(initReactI18next).init({
   interpolation: {
     escapeValue: false,
   },
-  supportedLngs: ["en", "he"],
+  supportedLngs: ["he"],
 });
 
 export default i18n;

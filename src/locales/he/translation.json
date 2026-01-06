@@ -1,0 +1,21 @@
+{
+  "addToCart": "הוסף לעגלה",
+  "moreDetails": "פרטים נוספים",
+  "productCategory": "קטגוריית מוצר",
+  "price": "מחיר",
+  "productName": "שם המוצר",
+  "amountOfMoney": "סכום כסף",
+  "cart": {
+    "title": "העגלה שלי",
+    "totalItems": "סה\"כ פריטים בעגלה",
+    "quantity": "כמות"
+  },
+  "totalPrice": "מחיר כולל",
+  "clearCart": "נקה עגלה",
+  "checkout": "לסיום קנייה",
+  "thankYouForYourPurchase": "תודה על הרכישה שלך!",
+  "pleaseAddMoney": "אנא הוסף כסף לחשבונך כדי להמשיך בקנייה.",
+  "notEnoughMoney": "אין מספיק כסף לחשבונך.",
+  "purchaseSuccessful": "הרכישה בוצעה בהצלחה!",
+  "close": "סגור"
+}
